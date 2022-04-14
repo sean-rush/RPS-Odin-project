@@ -2,85 +2,150 @@
 
 let choices = ['rock','paper','scissors'];
 
-let player = prompt ('will it be?? rock, paper, scissors');
-
 //Functions for the computer random selection...
 
 function compC(){
     return choices[Math.floor(Math.random() * choices.length)];
 }
 
-//Function for the player one selection...
-
-function playerC(){
-    return player;
-}
-
 //Function for a single round to play...
 
-let results = null;
-let playerScore = null;
-let compScore = null;
+let playerScore = 0;
+let compScore = 0;
 let gameScore = compScore + playerScore;
 
 function game(userChoice){
-   
+
     const compChoice = compC();
-    console.log(compChoice, userChoice);
+    
     switch (compChoice + userChoice){
         case 'rockscissors':
         case 'scissorspaper':
         case 'paperrock':
-            console.log('computer wins');
             results = ++compScore;
             break;
         
         case 'scissorsrock':
         case 'paperscissors':
         case 'rockpaper':
-            console.log('you win');
             results = ++playerScore;
             break;
         
         case 'rockrock':
         case 'paperpaper':
         case 'scissorsscissors':
-            console.log('its a tie');
             results = null;
             break;      
     }
-    console.log(results); 
-    
-}
-//game(player);
+//Changing the color of the selected word..
 
-
-//Function that runs five rounds and keeps track of score..
-
-function fullGame(i){
-    for (i = 0; i < 5; i++){
-        game(player);
+    switch (compChoice){
+        case 'rock':
+            crock.style.color = 'black';
+            cpaper.style.color = 'rgba(172, 174, 175, 0.973)';
+            cscissors.style.color = 'rgba(172, 174, 175, 0.973)';
+            break;
+        case 'paper':
+            cpaper.style.color = 'black';
+            crock.style.color = 'rgba(172, 174, 175, 0.973)';
+            cscissors.style.color = 'rgba(172, 174, 175, 0.973)'
+            break;
+        case 'scissors':
+            cscissors.style.color = 'black';
+            cpaper.style.color = 'rgba(172, 174, 175, 0.973)';
+            crock.style.color = 'rgba(172, 174, 175, 0.973)'
+            break;
+        case '':
+            break
     }
-}   
-fullGame(gameScore);
+// changing the color of the computer selected word...
 
+    switch (userChoice){
+        case 'rock':
+            rock.style.color = 'black';
+            paper.style.color = 'rgba(172, 174, 175, 0.973)';
+            scissors.style.color = 'rgba(172, 174, 175, 0.973)';
+            break;
+        case 'paper':
+            paper.style.color = 'black';
+            rock.style.color = 'rgba(172, 174, 175, 0.973)';
+            scissors.style.color = 'rgba(172, 174, 175, 0.973)'
+            break;
+        case 'scissors':
+            scissors.style.color = 'black';
+            paper.style.color = 'rgba(172, 174, 175, 0.973)';
+            rock.style.color = 'rgba(172, 174, 175, 0.973)'
+            break;
+        case '':
+            break
 
-//Function to record the winner of all five rounds..
-function winner(y,j){
-    if (y < j){
-        console.log('Congrats! You Win!');
-        console.log('computer score', y, 'player score',j);
-    }else if (y > j){
-        console.log('Ooooh Too Bad, Maybe Next Time!');
-        console.log('computer score', y, 'player score', j);
-    }else {
-        console.log('Wow Its Tie');
-        console.log('computer score', y, 'player score', j);
     }
-    
-    
+
+    //DOM Market manipulation for single round...
+
+    const compS = document.querySelector('#computer');
+    compS.textContent = compScore;
+
+    const playerS = document.querySelector('#player');
+    playerS.textContent = playerScore;
+
+    //Selecting the winner of five rounds...
+
+    function winner(y,j){
+        if (j === 5){
+            console.log('Congrats! You Win!');
+            console.log('computer score', y, 'player score',j);
+            alert('congrats you win!' + '       computer score - ' + y + '      player score - ' + j);
+            confirm = window.location.reload();
+        }else if (y === 5){
+            console.log('Ooooh Too Bad, Maybe Next Time!');
+            console.log('computer score', y, 'player score', j);
+            alert('to bad...  try agian?' + '      computer score - ' + y + '      player score - ' + j)
+            confirm = window.location.reload();
+        }else if (y === 5 && j === 5){
+            console.log('Wow Its Tie');
+            console.log('computer score', y, 'player score', j);
+            confirm = window.location.reload();
+        }else{}
+    }
+    winner(compScore, playerScore);
+
 }
-winner(compScore, playerScore);
+
+//Selectors for the main buttons in UI...
+
+let playerRock = 'rock'
+let playerPaper = 'paper'
+let playerScissors = 'scissors'
+
+const crock = document.getElementById('subHeader1');
+const cpaper = document.getElementById('subHeader2');
+const cscissors = document.getElementById('subHeader3');
+
+const rock = document.querySelector('#mainHeader1');
+rock.addEventListener ('click', () =>{
+    game(playerRock);
+})
+    
+const paper = document.querySelector('#mainHeader2');
+paper.addEventListener ('click', () => {
+    game(playerPaper);
+})
+
+const scissors = document.querySelector('#mainHeader3');
+scissors.addEventListener ('click', () => {
+    game(playerScissors);
+})
+
+
+
+
+
+
+
+
+
+ 
 
 
 
